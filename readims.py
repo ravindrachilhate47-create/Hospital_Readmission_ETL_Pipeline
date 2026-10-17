@@ -5,7 +5,7 @@ from sqlalchemy import create_engine
 
 logging.basicConfig(level=logging.INFO)
 
-input_paths=Path(r"C:\Users\Ravindra Chilhate\OneDrive\Desktop\keggel projects\readmission_dataset.csv") 
+input_paths=Path("For Privacy ")
 
 class readins:
     def __init__(self,input_paths):
@@ -23,7 +23,7 @@ class readins:
         print("basic info \n",df.info())
         print("check nulls \n",df.isna())
         print("show duplicated \n",df.duplicated())
-        # print("drop duplicateded \n",df.drop_duplicated())
+        logging.info("info completed")
 
         return df
     def transform(self,df):
@@ -41,14 +41,15 @@ class readins:
         df['discharge_disposition']=df['discharge_disposition'].fillna(0)
         df['insurance_type']=df['insurance_type'].str.upper()
         df['hospital_id']=df['hospital_id'].fillna(0)
-        logging.info("transforming complited successfuly ")
+        logging.info("transforming completed successfully ")
 
         return df 
     def loads(self,df):
          logging.info("loding data  ")
 
-         engine = create_engine("mysql+pymysql://root:root@localhost:3306/hospitals?charset=utf8mb4")
+         engine = create_engine("mysql+pymysql://root:charset=utf8mb4")
          df.to_sql("meri_table", engine, if_exists="append", index=False, chunksize=10000, method="multi")
+         logging.info("save  completed successfully ")
 
 
     def run(self):
